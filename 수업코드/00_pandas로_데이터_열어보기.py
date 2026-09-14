@@ -12,9 +12,9 @@ DATA = os.path.join(
 )  # data/수업용데이터/
 
 
-def 경로(파일명):
+def path(file_name):
     """data/ 폴더 안의 파일 경로를 만들어 주는 작은 도우미 함수"""
-    return os.path.join(DATA, 파일명)
+    return os.path.join(DATA, file_name)
 
 
 # =====================================================================
@@ -31,16 +31,16 @@ print(
 a = np.array([10, 20, 30, 40])
 print("    ② a > 20 은", a > 20, "→ a[a > 20] 은", a[a > 20])
 
-제곱 = [n * n for n in [1, 2, 3]]  # = 빈 리스트에 for 돌며 append 한 것과 같음
-print("    ③ [n*n for n in [1,2,3]] →", 제곱)
+square = [n * n for n in [1, 2, 3]]  # = 빈 리스트에 for 돌며 append 한 것과 같음
+print("    ③ [n*n for n in [1,2,3]] →", square)
 
-쌍 = [("온도", 0.5), ("압력", -2.0), ("진동", 1.2)]
+duo = [("온도", 0.5), ("압력", -2.0), ("진동", 1.2)]
 print(
-    "    ④ 절댓값 큰 순 정렬:", sorted(쌍, key=lambda t: -abs(t[1]))
+    "    ④ 절댓값 큰 순 정렬:", sorted(duo, key=lambda t: -abs(t[1]))
 )  # t 는 ("이름", 값) 한 쌍
 
-점수 = 0.83
-print("    ⑤", "좋음" if 점수 > 0.8 else "보통")
+score = 0.83
+print("    ⑤", "좋음" if score > 0.8 else "보통")
 
 b = np.array([1, 2, 3, 4, 5])
 print("    ⑥ b[:3] =", b[:3], "| b[3:] =", b[3:], "| b[::-1] =", b[::-1])
@@ -60,7 +60,7 @@ print(
 # =====================================================================
 # 1. CSV 읽기 — encoding="utf-8-sig" 를 잊지 말 것
 # =====================================================================
-df = pd.read_csv(경로("11_설비센서_ai4i.csv"), encoding="utf-8-sig")
+df = pd.read_csv(path("11_설비센서_ai4i.csv"), encoding="utf-8-sig")
 
 print("=" * 60)
 print("[1] 읽은 표의 모양 (행 수, 열 수):", df.shape)  # (200, 8) → 설비 200대, 열 8개
@@ -93,12 +93,12 @@ print(df["공정온도"].head(3))
 
 print()
 print("[3-1] 조건으로 행 고르기 = df[조건]  ( 문법 ② 의 pandas 판)")
-고장난것 = df[df["고장여부"] == 1]  # 고장여부가 1 인 행만 남긴 새 표
-print(고장난것)
+breaked_down = df[df["고장여부"] == 1]  # 고장여부가 1 인 행만 남긴 새 표
+print(breaked_down)
 print()
 print(
     "    고장난 설비의 공구마모 평균:",
-    round(고장난것["공구마모"].mean(), 1),
+    round(breaked_down["공구마모"].mean(), 1),
     "/ 전체 평균:",
     round(df["공구마모"].mean(), 1),
 )
@@ -107,28 +107,28 @@ print(
 # =====================================================================
 # 4. 상관계수 — 어느 열이 어느 열과 같이 움직이나
 # =====================================================================
-숫자열 = df.drop(columns=["설비ID", "타입"])
+number_columns = df.drop(columns=["설비ID", "타입"])
 print("=" * 60)
 print("[4] 상관계수 표")
-print(숫자열.corr().round(2))
+print(number_columns.corr().round(2))
 
-가짜 = df.copy()
-가짜["설비번호"] = range(1, len(df) + 1)  # 그냥 1, 2, 3... 순번. 아무 의미 없음
-가짜["번호_상관"] = (
-    가짜["설비번호"] * 0 + 가짜["공기온도"] * 2 + 10
+fake = df.copy()
+fake["설비번호"] = range(1, len(df) + 1)  # 그냥 1, 2, 3... 순번. 아무 의미 없음
+fake["번호_상관"] = (
+    fake["설비번호"] * 0 + fake["공기온도"] * 2 + 10
 )  # 공기온도를 베낀 열
 print()
 print("[4-1] 상관은 높은데 원인이 아닌 경우")
 print(
     "    공기온도 vs 번호_상관 의 상관계수:",
-    round(가짜["공기온도"].corr(가짜["번호_상관"]), 4),
+    round(fake["공기온도"].corr(fake["번호_상관"]), 4),
 )
 
 
 # =====================================================================
 # 5. 지저분한 데이터 다루기 — 12_제조센서_전처리.csv
 # =====================================================================
-dirty = pd.read_csv(경로("12_제조센서_전처리.csv"), encoding="utf-8-sig")
+dirty = pd.read_csv(path("12_제조센서_전처리.csv"), encoding="utf-8-sig")
 print("=" * 60)
 print("[5] 지저분한 데이터 원본")
 print(dirty)
@@ -216,7 +216,7 @@ print("    y 앞 5개:", y[:5])
 #
 #   힌트: 3번에서 한 것과 같습니다. df[조건] 이면 조건에 맞는 행만 남습니다.
 print()
-df = pd.read_csv(경로("12_제조센서_전처리.csv"))
+df = pd.read_csv(path("12_제조센서_전처리.csv"))
 # print(df)
 
 over_hang = df[df["진동"] > 3.2]
