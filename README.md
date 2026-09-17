@@ -75,7 +75,7 @@ VS Code 에서 `Ctrl+Shift+P` (맥 `Cmd+Shift+P`) → `Python: Select Interprete
 `(.venv)` 확인하고, 아래를 **한 줄로** 복사해서 붙여넣으세요.
 
 ```
-pip install pandas==3.0.5 numpy==2.5.3 scikit-learn==1.9.0 torch==2.14.0 matplotlib==3.11.1 joblib==1.6.0
+pip install pandas==3.0. scikit-learn==1.9.0 torch==2.14.0 matplotlib==3.11.1 joblib==1.6.0
 ```
 
 **5~10분 걸립니다.** torch 가 수백 MB 라서 그렇습니다.
