@@ -117,6 +117,7 @@ print("      온도    sigmoid      relu       활성화없음(항등)")
 
 for 이름, g in [("sigmoid", sigmoid), ("relu", relu), ("항등", 항등)]:
     표[이름] = [순전파(x, g)[0] for x in (10, 20, 30)]
+
 for i, x in enumerate((10, 20, 30)):
     print(
         f"      {x:4d}   {표['sigmoid'][i]:9.4f}  {표['relu'][i]:9.4f}   {표['항등'][i]:9.4f}"
